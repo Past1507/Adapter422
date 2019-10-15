@@ -10,4 +10,5 @@
         <item>Не срочно</item>
     </string-array>
     <string name="toastInfo">Задача %1$s\n%2$s\n%3$s</string>
+    <string name="errorMessage">Введите задачу и описание</string>
 </resources>
