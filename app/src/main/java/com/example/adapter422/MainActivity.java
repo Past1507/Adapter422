@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ListView mMainContent;
@@ -40,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
-                mAddLayout.setVisibility(view.VISIBLE);
-                fab.setVisibility(view.GONE);
+                mAddLayout.setVisibility(VISIBLE);
+                fab.setVisibility(GONE);
                 toolbar.setTitle(getString(R.string.new_task));
             }
         });
@@ -58,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 inputTitle.setText("");
                 inputSubtitle.setText("");
                 mListTask.setSelection(0);
-                mAddLayout.setVisibility(view.GONE);
-                fab.setVisibility(view.VISIBLE);
+                mAddLayout.setVisibility(GONE);
+                fab.setVisibility(VISIBLE);
                 toolbar.setTitle(getString(R.string.app_name));}
                 else {
                     Toast.makeText(MainActivity.this, getString(R.string.errorMessage), Toast.LENGTH_LONG).show();
@@ -83,11 +86,16 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onBackPressed() {
+        if (mAddLayout.getVisibility() == GONE) {
+            super.onBackPressed();
+        }
+        mAddLayout.setVisibility(GONE);
+        fab.setVisibility(VISIBLE);
+        toolbar.setTitle(getString(R.string.app_name));
         adapter.notifyDataSetChanged();
-        mMainContent.setAdapter(adapter);
-        super.onBackPressed();
     }
 
     private void initView() {
